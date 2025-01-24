@@ -40,7 +40,7 @@ public class CarGame extends JFrame implements ActionListener, KeyListener {
             g.setColor(Color.GRAY);
             g.fillRect(0, 0, 500, 700);
 
-            // Рисуем машину игрока
+            
             g.setColor(Color.BLUE);
             g.fillRect(playerX, playerY, 50, 100);
 
