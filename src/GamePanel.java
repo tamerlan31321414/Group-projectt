@@ -1,3 +1,5 @@
+import repositories.interfaces.IRecordRepository;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +14,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private int speed = 10;
     private boolean gameRunning = true;
 
-    public GamePanel() {
+    private final IRecordRepository recordRepo;
+
+    public GamePanel(IRecordRepository recordRepo) {
+        this.recordRepo = recordRepo;
+
         road = new Road();
         playerCar = new Car(225, 500, Color.DARK_GRAY);
         obstacleCar = new Car(new Random().nextInt(400), -100, Color.RED);
@@ -36,6 +42,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             g2d.drawString("Score: " + score, 20, 50);
         } else {
             drawGameOverScreen(g2d);
+
+            recordRepo.insert(score);
         }
     }
 
