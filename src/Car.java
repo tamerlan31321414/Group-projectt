@@ -36,12 +36,12 @@ public class Car {
         g2d.fillOval(x + 38, y + 18, 10, 10);
         g2d.fillOval(x + 38, y + 73, 10, 10);
 
-        // Фары
+        
         g2d.setColor(Color.YELLOW);
         g2d.fillOval(x + 5, y - 5, 10, 10);
         g2d.fillOval(x + 35, y - 5, 10, 10);
 
-        // Детали
+        
         g2d.setColor(Color.DARK_GRAY);
         g2d.fillRoundRect(x + 20, y + 50, 10, 5, 5, 5);
 
