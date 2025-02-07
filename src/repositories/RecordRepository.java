@@ -1,12 +1,13 @@
 package repositories;
 
+import USER.User;
 import db.interfaces.IDB;
 import repositories.interfaces.IRecordRepository;
 
 import java.sql.*;
 
 public class RecordRepository implements IRecordRepository {
-    private final IDB db;  // Dependency Injection
+    private final IDB db;
 
     public RecordRepository(IDB db) {
         this.db = db;
@@ -31,5 +32,10 @@ public class RecordRepository implements IRecordRepository {
         }
 
         return false;
+    }
+
+    @Override
+    public User saveUser(User user) {
+        return null;
     }
 }
