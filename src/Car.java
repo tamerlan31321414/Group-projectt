@@ -3,10 +3,18 @@ import java.awt.*;
 public class Car {
     private int x, y;
     private final Color color;
+    private Health health;
 
     public Car(int x, int y, Color color) {
         this.x = x;
         this.y = y;
+        this.color = color;
+        int initialHealth = 100;
+        this.health = new Health(initialHealth);
+    }
+
+    public Car(int x, int y, Color red, Color color) {
+
         this.color = color;
     }
 
@@ -14,10 +22,8 @@ public class Car {
         g2d.setColor(color);
         g2d.fillRoundRect(x, y, 50, 100, 15, 15);
 
-
         g2d.setColor(new Color(0, 0, 0, 50));
         g2d.fillRoundRect(x + 5, y + 10, 40, 80, 15, 15);
-
 
         g2d.setColor(Color.CYAN);
         g2d.fillRoundRect(x + 10, y + 10, 30, 20, 10, 10);
@@ -36,24 +42,22 @@ public class Car {
         g2d.fillOval(x + 38, y + 18, 10, 10);
         g2d.fillOval(x + 38, y + 73, 10, 10);
 
-
         g2d.setColor(Color.YELLOW);
         g2d.fillOval(x + 5, y - 5, 10, 10);
         g2d.fillOval(x + 35, y - 5, 10, 10);
 
-
         g2d.setColor(Color.DARK_GRAY);
         g2d.fillRoundRect(x + 20, y + 50, 10, 5, 5, 5);
-
 
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.fillRect(x - 10, y + 30, 5, 15);
         g2d.fillRect(x + 55, y + 30, 5, 15);
 
-
         g2d.setColor(new Color(255, 255, 255, 150));
         g2d.fillOval(x + 7, y - 8, 5, 5);
         g2d.fillOval(x + 37, y - 8, 5, 5);
+
+        health.draw(g2d);
     }
 
     public void move(int dx, int dy) {
@@ -72,5 +76,13 @@ public class Car {
 
     public Rectangle getBounds() {
         return new Rectangle(x, y, 50, 100);
+    }
+
+    public void takeDamage(int amount) {
+        health.decreaseHealth(amount);
+    }
+
+    public void resetHealth(int initialHealth) {
+        health.resetHealth(initialHealth);
     }
 }
