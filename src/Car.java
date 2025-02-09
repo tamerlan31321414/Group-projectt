@@ -13,11 +13,6 @@ public class Car {
         this.health = new Health(initialHealth);
     }
 
-    public Car(int x, int y, Color red, Color color) {
-
-        this.color = color;
-    }
-
     public void draw(Graphics2D g2d) {
         g2d.setColor(color);
         g2d.fillRoundRect(x, y, 50, 100, 15, 15);

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Arrays;
 
 public class Road {
     private final int[] roadLinesY;
@@ -12,9 +13,7 @@ public class Road {
         g2d.fillRect(0, 0, 500, 700);
 
         g2d.setColor(Color.WHITE);
-        for (int y : roadLinesY) {
-            g2d.fillRect(240, y, 10, 50);
-        }
+        Arrays.stream(roadLinesY).forEach(y -> g2d.fillRect(240, y, 10, 50));
     }
 
     public void update(int speed) {
