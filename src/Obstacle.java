@@ -2,12 +2,14 @@ import java.awt.*;
 
 public class Obstacle {
     private int x, y;
-    private final int width = 30, height = 30;
+    private final int width, height;
     private final Color color;
 
-    public Obstacle(int x, int y, Color color) {
+    public Obstacle(int x, int y, int width, int height, Color color) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         this.color = color;
     }
 
@@ -20,8 +22,9 @@ public class Obstacle {
         return new Rectangle(x, y, width, height);
     }
 
-    public void move(int speed) {
-        y += speed;
+    public void move(int deltaX, int deltaY) {
+        x += deltaX;
+        y += deltaY;
     }
 
     public void resetPosition(int x, int y) {

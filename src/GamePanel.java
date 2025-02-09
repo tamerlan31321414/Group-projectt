@@ -42,7 +42,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             g2d.drawString("Score: " + score, 20, 50);
         } else {
             drawGameOverScreen(g2d);
-
             recordRepo.insert(score);
         }
     }

@@ -40,6 +40,6 @@ public class CarGame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(CarGame::new);
+        SwingUtilities.invokeLater(() -> new CarGame());
     }
 }
