@@ -1,8 +1,8 @@
 package repositories;
 
-import USER.User;
 import db.interfaces.IDB;
 import repositories.interfaces.IRecordRepository;
+import repositories.interfaces.User;
 
 import java.sql.*;
 
@@ -19,7 +19,7 @@ public class RecordRepository implements IRecordRepository {
 
         try {
             con = db.getConnection();
-            String sql = "INSERT INTO records(score) VALUES (?)";
+            String sql = "INSERT INTO records(score) VALUES (?),";
             PreparedStatement st = con.prepareStatement(sql);
 
             st.setInt(1, point);

@@ -1,8 +1,8 @@
-import USER.User;
 import db.PostgresDB;
 import db.interfaces.IDB;
 import repositories.RecordRepository;
 import repositories.interfaces.IRecordRepository;
+import repositories.interfaces.User;
 
 import javax.swing.*;
 

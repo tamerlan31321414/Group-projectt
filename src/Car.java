@@ -1,17 +1,27 @@
 import java.awt.*;
 
-public class Car {
-    private int x, y;
-    private final Color color;
-    private Health health;
+public abstract class Car {
+    protected int x, y;
+    protected Color color;
+    protected int health;
 
-    public Car(int x, int y, Color color) {
+    public Car(int x, int y, Color color, int health) {
         this.x = x;
         this.y = y;
         this.color = color;
-        int initialHealth = 100;
-        this.health = new Health(initialHealth);
+        this.health = health;
     }
+
+    public Car(int x, int y, Color color) {
+    }
+
+    public Car() {
+
+    }
+
+    public abstract void drive();
+
+    public abstract String getType();
 
     public void draw(Graphics2D g2d) {
         g2d.setColor(color);
@@ -51,8 +61,6 @@ public class Car {
         g2d.setColor(new Color(255, 255, 255, 150));
         g2d.fillOval(x + 7, y - 8, 5, 5);
         g2d.fillOval(x + 37, y - 8, 5, 5);
-
-        health.draw(g2d);
     }
 
     public void move(int dx, int dy) {
@@ -74,10 +82,14 @@ public class Car {
     }
 
     public void takeDamage(int amount) {
-        health.decreaseHealth(amount);
+        health -= amount;
     }
 
     public void resetHealth(int initialHealth) {
-        health.resetHealth(initialHealth);
+        health = initialHealth;
+    }
+
+    public int getHealth() {
+        return health;
     }
 }

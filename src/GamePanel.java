@@ -8,21 +8,43 @@ import java.util.Random;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private final Timer timer;
     private final Road road;
-    private final Car playerCar;
-    private final Car obstacleCar;
+    private Car playerCar;
+    private Car obstacleCar;
     private int score = 0;
     private int speed = 10;
     private boolean gameRunning = true;
 
     private final IRecordRepository recordRepo;
+    private Health playerHealth;
 
     public GamePanel(IRecordRepository recordRepo) {
         this.recordRepo = recordRepo;
-
         road = new Road();
-        playerCar = new Car(225, 500, Color.DARK_GRAY);
-        obstacleCar = new Car(new Random().nextInt(400), -100, Color.RED);
 
+        String[] carTypes = {"Sedan", "SUV", "Truck"};
+        String selectedCarType = (String) JOptionPane.showInputDialog(this,
+                "Choose your car model",
+                "Car Selection",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                carTypes,
+                carTypes[0]);
+
+        if (selectedCarType != null) {
+            playerCar = CarFactory.getInstance().createCar(selectedCarType);
+        }
+
+        obstacleCar = new Car(new Random().nextInt(400), -100, Color.RED, 100) {
+            @Override
+            public void drive() {}
+
+            @Override
+            public String getType() {
+                return "";
+            }
+        };
+
+        playerHealth = new Health(100);
         timer = new Timer(20, this);
         timer.start();
     }
@@ -40,6 +62,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             g2d.setColor(Color.WHITE);
             g2d.setFont(new Font("Arial", Font.BOLD, 20));
             g2d.drawString("Score: " + score, 20, 50);
+
+            playerHealth.draw(g2d);
         } else {
             drawGameOverScreen(g2d);
             recordRepo.insert(score);
@@ -68,8 +92,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             road.update(speed);
 
             if (playerCar.getBounds().intersects(obstacleCar.getBounds())) {
-                gameRunning = false;
-                timer.stop();
+                playerHealth.decreaseHealth(10);
+
+                if (playerHealth.getHealth() <= 0) {
+                    gameRunning = false;
+                    timer.stop();
+                }
             }
 
             if (obstacleCar.getY() > getHeight()) {
@@ -104,6 +132,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         obstacleCar.resetPosition(new Random().nextInt(400), -100);
         score = 0;
         speed = 10;
+        playerHealth.resetHealth(100);
         timer.start();
         repaint();
     }
